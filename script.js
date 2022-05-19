@@ -7,26 +7,26 @@ input.addEventListener("input", (e) => {
     textSplit = input.value.split(/(\s)|(?=[\n])|(?<=[\n])/g);
 
     textSplit.forEach((word) => {
-        const boldSpan = document.createElement("span");
-        boldSpan.classList.add("bold");
+        if (word && word !== " ") {
+            const boldSpan = document.createElement("span");
+            boldSpan.classList.add("bold");
 
-        const regularSpan = document.createElement("span");
+            const regularSpan = document.createElement("span");
 
-        if (word) {
             const len = isPunctuation(word) ? word.length - 1 : word.length;
 
             if (len === 1 || len == 2) {
                 boldSpan.textContent = word.substring(0, 1);
-                regularSpan.textContent = word.substring(1);
+                regularSpan.textContent = word.substring(1) + " ";
             } else if (len === 3 || len == 4) {
                 boldSpan.textContent = word.substring(0, 2);
-                regularSpan.textContent = word.substring(2);
+                regularSpan.textContent = word.substring(2) + " ";
             } else if (len === 5 || len == 6) {
                 boldSpan.textContent = word.substring(0, 3);
-                regularSpan.textContent = word.substring(3);
+                regularSpan.textContent = word.substring(3) + " ";
             } else if (len >= 7) {
                 boldSpan.textContent = word.substring(0, 4);
-                regularSpan.textContent = word.substring(4);
+                regularSpan.textContent = word.substring(4) + " ";
             }
             output.appendChild(boldSpan);
             output.appendChild(regularSpan);
