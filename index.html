@@ -15,11 +15,18 @@
     </head>
     <body>
         <div class="container">
-            <textarea
-                name="text"
-                class="input-text"
-                placeholder="Type or paste your text here"
-            ></textarea>
+            <div class="input-control">
+                <textarea
+                    name="text"
+                    class="input-text"
+                    placeholder="Type or paste your text here"
+                ></textarea>
+                <div class="buttons">
+                    <button class="button dummy-text-btn">Dummy Text</button>
+                    <button class="button clear-btn">Clear</button>
+                </div>
+            </div>
+
             <pre>
                 <p class="output-text"></p>
             </pre>
