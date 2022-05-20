@@ -10,7 +10,48 @@ clearBtn.addEventListener("click", () => {
     output.textContent = "";
 });
 
-dummyTextBtn.addEventListener("click", () => {
+dummyTextBtn.addEventListener("click", () => displayDummyText());
+
+function isPunctuation(word) {
+    const puncRegex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+    return word[word.length - 1].match(puncRegex);
+}
+
+function formatWord(word) {
+    const boldSpan = document.createElement("span");
+    boldSpan.classList.add("bold");
+
+    const regularSpan = document.createElement("span");
+
+    const len = isPunctuation(word) ? word.length - 1 : word.length;
+    let lastBoldIndex = 0;
+    if (len === 1 || len === 2) {
+        lastBoldIndex = 1;
+    } else if (len === 3 || len === 4) {
+        lastBoldIndex = 2;
+    } else if (len === 5 || len === 6) {
+        lastBoldIndex = 3;
+    } else if (len >= 7) {
+        lastBoldIndex = 4;
+    }
+    boldSpan.textContent = word.substring(0, lastBoldIndex);
+    regularSpan.textContent = word.substring(lastBoldIndex);
+    return [boldSpan, regularSpan];
+}
+
+function renderText(text) {
+    output.textContent = "";
+    const textSplit = text.split(/(\s)|(?=[\n])|(?<=[\n])/g);
+    textSplit.forEach((word) => {
+        if (word) {
+            const [boldSpan, regularSpan] = formatWord(word);
+            output.appendChild(boldSpan);
+            output.appendChild(regularSpan);
+        }
+    });
+}
+
+function displayDummyText() {
     const text = `What is Lorem Ipsum?
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
@@ -28,45 +69,4 @@ There are many variations of passages of Lorem Ipsum available, but the majority
 
     input.value = text;
     renderText(text);
-});
-
-function isPunctuation(word) {
-    const puncRegex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
-    return word[word.length - 1].match(puncRegex);
-}
-
-function formatWord(word) {
-    const boldSpan = document.createElement("span");
-    boldSpan.classList.add("bold");
-
-    const regularSpan = document.createElement("span");
-
-    const len = isPunctuation(word) ? word.length - 1 : word.length;
-
-    if (len === 1 || len == 2) {
-        boldSpan.textContent = word.substring(0, 1);
-        regularSpan.textContent = word.substring(1);
-    } else if (len === 3 || len == 4) {
-        boldSpan.textContent = word.substring(0, 2);
-        regularSpan.textContent = word.substring(2);
-    } else if (len === 5 || len == 6) {
-        boldSpan.textContent = word.substring(0, 3);
-        regularSpan.textContent = word.substring(3);
-    } else if (len >= 7) {
-        boldSpan.textContent = word.substring(0, 4);
-        regularSpan.textContent = word.substring(4);
-    }
-    return [boldSpan, regularSpan];
-}
-
-function renderText(text) {
-    output.textContent = "";
-    const textSplit = text.split(/(\s)|(?=[\n])|(?<=[\n])/g);
-    textSplit.forEach((word) => {
-        if (word) {
-            const [boldSpan, regularSpan] = formatWord(word);
-            output.appendChild(boldSpan);
-            output.appendChild(regularSpan);
-        }
-    });
 }
