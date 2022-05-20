@@ -70,14 +70,13 @@ pre {
     white-space: -o-pre-wrap;
     word-wrap: break-word;
     min-height: 20vh;
-    padding: 3vw;
     display: flex;
     justify-content: center;
 }
 
 .output-text {
-    max-width: 100%;
-    min-width: 40%;
+    max-width: 800px;
+    width: 100%;
     font-weight: 300;
     line-height: 1.5em;
     font-size: 1.2rem;
@@ -86,4 +85,10 @@ pre {
 
 .bold {
     font-weight: 600;
+}
+
+@media screen and (max-width: 500px) {
+    pre {
+        padding: 1vw;
+    }
 }
